@@ -27,12 +27,7 @@ def get_hair_mask(image_path, weight_path='res/79999_iter.pth'):
         original_size = img.size
         image_tensor = to_tensor(img).unsqueeze(0)
 
-# Example usage:
-if __name__ == "__main__":
-    image_path = "example.jpg"             # change to your image
-    save_path = "output/hair_mask.png"     # output path
-    weight_path = "res/79999_iter.pth"     # model checkpoint
-    save_hair_mask(image_path, save_path, weight_path)    # Predict parsing map
+    # Predict parsing map
     net = load_bisenet_model(weight_path)
     with torch.no_grad():
         out = net(image_tensor)[0]
@@ -51,3 +46,10 @@ def save_hair_mask(image_path, save_path='hair_mask.png', weight_path='res/79999
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     cv2.imwrite(save_path, hair_mask)
     print(f"[✓] Hair mask saved to {save_path}")
+
+# Example usage:
+if __name__ == "__main__":
+    image_path = "example.jpg"             # change to your image
+    save_path = "output/hair_mask.png"     # output path
+    weight_path = "res/79999_iter.pth"     # model checkpoint
+    save_hair_mask(image_path, save_path, weight_path)
